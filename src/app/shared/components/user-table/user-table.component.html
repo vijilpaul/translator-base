@@ -1,0 +1,27 @@
+
+<div class="usertable">
+    <div *ngFor="let user of userDetails | slice:0:5; let i=index" class="usertable__container">
+        <div class="usertable__items">
+            <span class="usertable__items-img"><img src="https://via.placeholder.com/150" alt="profile-photo" /></span>
+        </div>
+        <div class="usertable__items">
+            <h3><a routerLink="/{{userType}}/{{user.id}}/details" class="link-primary">{{user.first_name}} {{user.last_name}}</a></h3>
+            <h6>Country: {{user.country}}</h6>
+        </div>
+        <div class="usertable__items">
+            <p><strong>Native in:</strong> {{user.native_language}} </p>
+            <p class="maxline-fix">Services are: {{user.services | replacePipe : ',' : ', '}} </p>
+        </div>
+        <div class="usertable__items">
+            <ul *ngFor="let lang of user.languages; let i=index" class="usertable__items-languages">
+                <span *ngIf="i<3">
+                    <li>{{lang.source}} to {{lang.target}}</li>
+                </span>
+            </ul>
+            <span *ngIf="user.languages.length > 3"><a routerLink="/{{userType}}/{{user.id}}/details" class="link">More</a></span>
+        </div>
+        <div class="usertable__items">
+            <a routerLink="/{{userType}}/{{user.id}}/details" class="btn btn-primary">Contact</a>
+        </div>
+    </div>
+</div>

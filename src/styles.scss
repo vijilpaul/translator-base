@@ -1,0 +1,465 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import "./assets/styles/variables";
+::selection{
+  background: #2a2a86;
+  color: white;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  height: 100%;
+  font-size: $browser-context;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // rem font size media queries
+  @media (min-width: 992px) {
+    font-size: $browser-context * (81.25/100);
+  }
+  @media (min-width: 1200px) {
+    font-size: $browser-context * (87.5/100);
+  }
+  @media (min-width: 1440px) {
+    font-size: $browser-context;
+  }
+}
+body {
+  margin: 0;
+  font-family: $ff, Arial, Helvetica, sans-serif;
+  background-color: $white;
+  color: $text-color-primary;
+  scroll-behavior: smooth;
+  main {
+    min-height: 100vh;
+    overflow: hidden;
+    width: 100%;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  color: inherit;
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  li {
+    list-style-type: none;
+  }
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+a {
+  cursor: pointer;
+}
+
+.btn, form, input, .form-control, select{
+  font-size: medium;
+  &-style-less {
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    outline: none !important;
+  }
+}
+input{
+  padding: 15px 20px;
+}
+input[type=radio], input[type=checkbox] {
+  width: auto;
+  display: inline-block;
+  height: auto;
+}
+select.custom-select{
+  padding: 5px 20px;
+  height: auto;
+  font-size: medium;
+}
+.form-group{
+  margin-bottom: 15px;
+}
+
+.fluid {
+  &-spacing {
+    &-sm {
+      padding-left: 2rem !important;
+      padding-right: 2rem !important;
+      @media screen and (min-width: 768px) {
+        padding-left: 5% !important;
+        padding-right: 5% !important;
+      }
+    }
+    &-lg {
+      padding-left: 2rem !important;
+      padding-right: 2rem !important;
+      @media screen and (min-width: 768px) {
+        padding-left: 5% !important;
+        padding-right: 5% !important;
+      }
+      @media screen and (min-width: 992px) {
+        padding-left: 10% !important;
+        padding-right: 10% !important;
+      }
+
+      &-mob-only {
+        @media screen and (max-width: 768px) {
+          padding-left: 5% !important;
+          padding-right: 5% !important;
+        }
+        @media screen and (max-width: 767px) {
+          padding-left: 2rem !important;
+          padding-right: 2rem !important;
+        }
+      }
+    }
+  }
+}
+.theme {
+  &-light {
+    background-color: $app-color-secondary !important;
+    color: $text-color-primary !important;
+    a {
+      color: $text-color-primary !important;
+    }
+  }
+  &-dark {
+    background-color: $app-color-primary !important;
+    color: $white !important;
+    a {
+      color: $white !important;
+    }
+  }
+}
+
+// text styles
+h1.page-title {
+  font-family: $ff-medium, Arial, Helvetica, sans-serif;
+  font-size: 6rem;
+  font-weight: 500;
+  line-height: $lh-xs;
+  letter-spacing: -0.2rem;
+  margin-bottom: $space-sm;
+  color: $app-color-primary;
+  @media screen and (min-width: 768px) {
+    font-size: 8rem;
+    letter-spacing: -0.36rem;
+  }
+  @media screen and (min-width: 992px) {
+    font-size: 10rem;
+    letter-spacing: -0.48rem;
+  }
+  &--small {
+    font-size: 4rem;
+    line-height: normal;
+    letter-spacing: -0.1rem;
+    margin-bottom: $space-xs;
+    @media screen and (min-width: 768px) {
+      font-size: 5rem;
+      letter-spacing: -0.133rem;
+    }
+    @media screen and (min-width: 992px) {
+      font-size: 6rem;
+      letter-spacing: -0.16rem;
+    }
+  }
+}
+
+h2,
+p,
+a {
+  &.section-title {
+    font-family: $ff-medium, Arial, Helvetica, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.1rem;
+    color: $app-color-primary;
+    @media screen and (min-width: 768px) {
+      font-size: 2.5rem;
+      letter-spacing: -0.133rem;
+    }
+    @media screen and (min-width: 992px) {
+      font-size: 3rem;
+      letter-spacing: -0.16rem;
+    }
+  }
+}
+
+h3.topic-title {
+  line-height: $lh-lg;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+  position: relative;
+  &:after{
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      width: 100px;
+      height: 4px;
+      background: $app-color-primary;
+      left: 0;
+  }
+}
+h3,
+p,
+span,
+a {
+  &.topic-title {
+    font-family: $ff-medium, Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: -0.06rem;
+    @media screen and (min-width: 768px) {
+      font-size: 1.8rem;
+      letter-spacing: -0.067rem;
+    }
+    @media screen and (min-width: 992px) {
+      font-size: 2rem;
+      letter-spacing: -0.08rem;
+    }
+    &--regular {
+      font-family: $ff, Arial, Helvetica, sans-serif;
+    }
+  }
+}
+.nav-links{
+    font-family: $ff, Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: -0.06rem;
+    text-decoration: none;
+    @media screen and (min-width: 768px) {
+      font-size: 1.6rem;
+      letter-spacing: -0.067rem;
+    }
+    @media screen and (min-width: 992px) {
+      font-size: 1.8rem;
+      letter-spacing: -0.08rem;
+    }
+    &--regular {
+      font-family: $ff, Arial, Helvetica, sans-serif;
+    }
+}
+p,
+li,
+span,
+a {
+  &.para {
+    font-family: $ff, Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    line-height: $lh-xlg;
+    @media screen and (min-width: 768px) {
+      font-size: 1.6rem;
+    }
+    &--lh {
+      line-height: $lh-xlg;
+    }
+    &--medium {
+      font-family: $ff-medium, Arial, Helvetica, sans-serif;
+    }
+  }
+}
+
+.page-description {
+  font-family: $ff, Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  line-height: $lh-xlg;
+  @media screen and (min-width: 768px) {
+    font-size: 2rem;
+  }
+  @media screen and (min-width: 992px) {
+    font-size: 2.4rem;
+  }
+}
+
+.text-button {
+  font-family: $ff-bold, Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  line-height: $lh-md;
+  @media screen and (min-width: 768px) {
+    font-size: 1.4rem;
+  }
+}
+
+.cookies-text{
+  font-family: $ff, Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  line-height: $lh-xlg;
+  @media screen and (min-width: 768px) {
+  font-size: 1.4rem;
+}
+}
+
+.large-text {
+  font-family: $ff-medium, Arial, Helvetica, sans-serif;
+  font-size: 3rem;
+  font-weight: 500;
+  letter-spacing: -0.01rem;
+  @media screen and (min-width: 768px) {
+    font-size: 4rem;
+    letter-spacing: -0.133rem;
+  }
+  @media screen and (min-width: 992px) {
+    font-size: 4.8rem;
+    letter-spacing: -0.16rem;
+  }
+}
+
+.xlarge-text {
+  font-family: $ff, Arial, Helvetica, sans-serif;
+  font-size: 3rem;
+  line-height: $lh-sm;
+  letter-spacing: -0.16rem;
+  @media screen and (min-width: 768px) {
+    font-size: 4rem;
+    letter-spacing: -0.24rem;
+  }
+  @media screen and (min-width: 992px) {
+    font-size: 4.8rem;
+    letter-spacing: -0.32rem;
+  }
+}
+
+.cta-text {
+  font-family: $ff, Arial, Helvetica, sans-serif;
+  font-size: 2.4rem;
+  letter-spacing: -0.1rem;
+  @media screen and (min-width: 768px) {
+    font-size: 4.8rem;
+    letter-spacing: -0.187rem;
+  }
+  @media screen and (min-width: 992px) {
+    font-size: 6rem;
+    letter-spacing: -0.24rem;
+  }
+}
+
+.footer-text {
+  font-family: $ff, Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  line-height: $lh-xxlg;
+  @media screen and (min-width: 768px) {
+    font-size: 1.4rem;
+  }
+}
+
+.opacity {
+  &--pr {
+    opacity: 0.5;
+  }
+  &--sc {
+    opacity: 0.25;
+  }
+}
+
+// end of text styles
+
+body:not(.tabbed-by-user) button:focus,
+body:not(.tabbed-by-user) input:focus,
+body:not(.tabbed-by-user) select:focus,
+body:not(.tabbed-by-user) textarea:focus,
+body:not(.tabbed-by-user) img:focus,
+body:not(.tabbed-by-user) a:focus,
+body:not(.tabbed-by-user) div:focus {
+  outline: none;
+}
+
+body.tabbed-by-user button:focus,
+body.tabbed-by-user input:focus,
+body.tabbed-by-user select:focus,
+body.tabbed-by-user textarea:focus,
+body.tabbed-by-user img:focus,
+body.tabbed-by-user a:focus,
+body.tabbed-by-user div:focus {
+  outline: 2px dotted #66459b!important;
+}
+.dynamicTbl{
+    margin: 3rem 0;
+    border: 1px solid #f2f2f2;
+    th{
+        background: $app-color-primary;
+        color: $white;
+        padding: 1rem 2rem;
+        font-size: 1.6rem;
+        border: 1px solid #5d5db1;
+        &:first-child{
+            vertical-align: middle;
+        }
+    }
+    td{
+        color: $text-color-primary;
+        padding: 1rem 2rem;
+        font-size: 1.6rem;
+        h2{
+            font-size: 4rem;
+            margin: 0.5rem 0;
+            line-height: 1;
+            font-weight: bold;
+        }
+    }
+}
+.resume{
+  white-space: pre-line;
+}
+table{
+  font-size: 12px;
+}
+.messagelayer{
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+  &__text{
+    color: green;
+    padding: 1.5em;
+    font-size: 1.8em;
+    background: $white;
+    position: absolute;
+    min-width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @media screen and (min-width: 768px) {
+      padding: 2em;
+      font-size: 2.5em;
+    }
+  }
+}
+.capital-text{
+  text-transform: capitalize;;
+}
+.link-primary{
+  color: $app-color-primary;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.small-label{
+  font-size: small;
+}
+.maxline-fix{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

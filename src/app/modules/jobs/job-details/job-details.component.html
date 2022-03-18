@@ -1,0 +1,107 @@
+<h2 class="section-title">Job Details</h2>
+<div *ngFor="let job of jobDetails; let i=index" class="job-details">
+    <div class="row">
+        <div class="col-12">
+            <ng-container *ngIf="isAgency;then agency else translator"></ng-container>
+            <ng-template #agency>
+                <div class="float-left" *ngIf="quoteDetails.length > 0">
+                    <button class="btn btn-secondary" (click)="onClickScroll('quotedetails')">Total Quotes: {{quoteDetails.length}}</button>
+                </div>
+                <div class="float-right"><a routerLink="/jobs/myjobs" class="btn btn-primary">Back to Myjobs</a></div>
+            </ng-template>
+            <ng-template #translator>
+                <div class="float-left">
+                    <ng-container *ngIf="isLoggedIn;then login else notlogin"></ng-container>
+                    <ng-template #login>
+                        <a routerLink="/quotes/{{job.jobid}}/submit-quote" class="btn btn-primary">Submit your quote</a>
+                    </ng-template>
+                    <ng-template #notlogin>
+                        <a routerLink="/user/login" class="btn btn-primary">Login to submit your quote</a>
+                    </ng-template>
+                </div>
+                <div class="float-right"><a routerLink="/jobs" class="btn btn-primary">Back to Jobs</a></div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3 class="job-details__jobtitle">{{job.job_title}}</h3>
+            <span class="job-details__posteddate">Job posted at: {{job.date | date:'long'}}</span>
+        </div>
+        <div class="col-12 col-sm-6">
+            <p><strong>Job type: </strong>{{job.job_type}}</p>
+        </div>
+        <div class="col-12 col-sm-6">
+            <p><strong>Job required: </strong>{{job.explanation_option1}}, {{job.explanation_option2}}</p>
+        </div>
+        <div class="col-12">
+            <p><strong>Specialization: </strong>{{job.subject_areas | replacePipe : ',' : ', '}}</p>
+        </div>
+        <div class="col-12">
+            <div class="job-details__languages"><strong>Languages: </strong>
+                <ul *ngFor="let lang of job.languages; let i=index">
+                    <li>{{lang.source}} to {{lang.target}}</li>
+                </ul>
+            </div>
+            <p><strong>Linguists must live in: </strong>{{job.country}}</p>
+        </div>
+        <div class="col-12">
+            <p><strong>Job description: </strong></p>
+            <div class="job-details__description">
+                <p><span class="resume">{{job.job_description}}</span></p>
+            </div>
+        </div>
+        <div class="col-12">
+            <p><strong>Source format: </strong>{{job.software | replacePipe : ',' : ', '}}</p>
+        </div>
+        <div class="col-12">
+            <p><strong>Budget Details: </strong>{{job.offered_value}} per {{job.rate_per}}</p>
+            <p><strong>Currency Type: </strong>{{job.currency_type}}</p>
+            <p><strong>Deadline: </strong>
+                <ng-container *ngIf="job.deadline === 'No deadline';then nodeadline else deadline"></ng-container>
+                <ng-template #nodeadline>{{job.deadline}}</ng-template>
+                <ng-template #deadline>{{job.deadlinedate | date}} at {{job.deadlinetime}}</ng-template>
+            </p>
+        </div>
+    </div>
+    <h3 class="topic-title">Quote details</h3>
+    <div *ngIf="!isLoggedIn">
+        <p>Please find the below quote details</p>
+        <a routerLink="/user/login" class="btn btn-primary">Login to submit your quote</a>
+    </div>
+    <div *ngIf="!isAgency && isLoggedIn && !isSubmittedQuote">
+        <p>Please submit your quotes</p>
+        <a routerLink="/quotes/{{job.jobid}}/submit-quote" class="btn btn-primary">Submit your quote</a>
+    </div>
+    <div *ngIf="isSubmittedQuote">
+        <p>You already Quoted. Please check your quote</p>
+        <p><a routerLink="/quotes/{{quotedID}}/details" class="more">Click here</a> to show your quote</p>
+    </div>
+    
+    <div class="row" *ngIf="isAgency">
+        <div class="col-12">
+            <p class="float-right"><a routerLink="/jobs/{{job.jobid}}/job-edit" class="btn btn-primary">Edit job</a></p>
+        </div>
+        
+        <div class="col-12" id="quotedetails">
+            <ng-container *ngIf="quoteDetails.length > 0;then quoteList else noQuote"></ng-container>
+            <ng-template #noQuote>
+                <h4>No one quoted</h4>
+            </ng-template>
+            <ng-template #quoteList>
+                <div class="quote-wrap" *ngFor="let quote of quoteDetails; let i=index">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h4><a routerLink="/translators/{{quote.userdetails.id}}/details">{{quote.userdetails.first_name}} {{quote.userdetails.last_name}}</a></h4>
+                            <p class="resume"><strong>Quote Message: </strong><br>{{quote.quotedetails.quote_message}}</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p><strong>Quote Price: </strong>{{quote.quotedetails.quotePrice}}</p>
+                            <p><a routerLink="/translators/{{quote.userdetails.id}}/details" class="more-link">More User Details</a></p>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

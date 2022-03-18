@@ -1,0 +1,46 @@
+<header class="header container-fluid p-0">
+    <div class="container-sm">
+        <div class="row">
+            <div class="col-sm-6">
+                <a [routerLink]="'/home'"><img src="https://via.placeholder.com/100x60?text=Logo" alt="Logo"></a>
+            </div>
+            <div class="col-sm-6">
+                <ul aria-label="login navigation" class="header__register">
+                    <li *ngIf="!isLoggedIn">
+                        <a routerLink="/user/login" class="nav-links" routerLinkActive="active">Login</a>
+                    </li>
+                    <li *ngIf="!isLoggedIn">
+                        <a routerLink="/user/register" class="nav-links" routerLinkActive="active">Register</a>
+                    </li>
+                    <li *ngIf="isLoggedIn">
+                        <a routerLink="/dashboard" class="nav-links" routerLinkActive="active">Dashboard</a>
+                    </li>
+                    <li *ngIf="isLoggedIn">
+                        <a routerLink="/user/profile" class="nav-links" routerLinkActive="active">Profile</a>
+                    </li>
+                    <li *ngIf="isLoggedIn" (click)="onLogout()">
+                        <a routerLink="/user/login" class="nav-links" routerLinkActive="active">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="theme-dark">
+        <div class="container-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <nav class="header__nav">
+                        <ul aria-label="main navigation">
+                            <li><a class="nav-links" [routerLink]="'/home'" routerLinkActive="active">Home</a></li>
+                            <li><a class="nav-links" [routerLink]="'/about'" routerLinkActive="active">About</a></li>
+                            <li *ngIf="isAgency"><a class="nav-links" [routerLink]="'/translators'" routerLinkActive="active">Translators and Interpreters</a></li>
+                            <li *ngIf="isTranslator"><a class="nav-links" [routerLink]="'/agencies'" routerLinkActive="active">Translation agencies</a></li>
+                            <li *ngIf="isTranslator"><a class="nav-links" [routerLink]="'/jobs'" routerLinkActive="active">Jobs</a></li>
+                            <li *ngIf="isAgency"><a class="nav-links" [routerLink]="'/jobs/post-job'" routerLinkActive="active">Post Job</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

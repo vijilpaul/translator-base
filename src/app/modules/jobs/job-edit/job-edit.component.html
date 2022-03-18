@@ -1,0 +1,216 @@
+<section class="editJob">
+    <h2 class="section-title">Edit Job Details</h2>
+    <form [formGroup]="jobDetailsForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="job_title">Job title</label>
+            <input type="text" formControlName="job_title" class="form-control" [ngClass]="{ 'is-invalid': submitted && jobs.job_title.errors }" />
+            <div *ngIf="submitted && jobs.job_title.errors" class="invalid-feedback">
+                <div *ngIf="jobs.job_title.errors.required">Job Title is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="job_type">Job Type</label>
+            <select class="custom-select" formControlName="job_type" [ngClass]="{ 'is-invalid': submitted && jobs.job_type.errors }">
+                <option value="">Select One</option>
+                        <option [value]="type.name" *ngFor="let type of jobTypes">{{type.name}}</option>
+            </select>
+            <div *ngIf="submitted && jobs.job_type.errors" class="invalid-feedback">
+                <div *ngIf="jobs.job_type.errors.required">Job Type is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Explanation Job Types</label>
+            <div class="row">
+                <div class="col-6">
+                    <div class="editJob__box">
+                        <mat-radio-group class="editJob__radio-group" aria-label="Select an option" formControlName="explanation_option1" [ngClass]="{ 'is-invalid': submitted && jobs.explanation_option1.errors }">
+                            <mat-radio-button class="editJob__radio-button small-label" value="Immediate">Immediate</mat-radio-button>
+                            <mat-radio-button class="editJob__radio-button small-label" value="Potential">Potential</mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="submitted && jobs.explanation_option1.errors" class="invalid-feedback">
+                            <div *ngIf="jobs.explanation_option1.errors.required">Please choose In-House or Telecommuting</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="editJob__box">
+                        <mat-radio-group class="editJob__radio-group" aria-label="Select an option" formControlName="explanation_option2" [ngClass]="{ 'is-invalid': submitted && jobs.explanation_option2.errors }">
+                            <mat-radio-button class="editJob__radio-button small-label" value="In-house">In-house</mat-radio-button>
+                            <mat-radio-button class="editJob__radio-button small-label" value="Telecommuting">Telecommuting</mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="submitted && jobs.explanation_option2.errors" class="invalid-feedback">
+                            <div *ngIf="jobs.explanation_option2.errors.required">Please choose In-House or Telecommuting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Deadline</label>
+            <div class="row">
+                <div class="col-6">
+                    <div class="editJob__box">
+                        <mat-radio-group class="editJob__radio-group" aria-label="Select an option" (change)="onDateChange($event)" formControlName="deadline" [ngClass]="{ 'is-invalid': submitted && jobs.deadline.errors }">
+                            <mat-radio-button class="editJob__radio-button small-label" value="No deadline">No deadline</mat-radio-button>
+                            <mat-radio-button class="editJob__radio-button small-label" value="Set date">Set date</mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="submitted && jobs.deadline.errors" class="invalid-feedback">
+                            <div *ngIf="jobs.deadline.errors.required">Please choose No deadline or Set date</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <mat-form-field appearance="fill" [ngClass]="{ 'is-invalid': submitted && jobs.deadlinedate.errors }">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="deadlinedate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <div *ngIf="submitted && jobs.deadlinedate.errors" class="invalid-feedback">
+                        <div *ngIf="jobs.deadlinedate.errors.required">Please choose your date</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="deadlinetime" class="small-label">Time</label>
+                        <select class="custom-select" formControlName="deadlinetime" [ngClass]="{ 'is-invalid': submitted && jobs.deadlinetime.errors }">
+                            <option value="">Select Time</option>
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="Noon">Noon</option>
+                            <option value="5:00 PM">5:00 PM</option>
+                            <option value="End of the day">End of the day</option>
+                        </select>
+                        <div *ngIf="submitted && jobs.deadlinetime.errors" class="invalid-feedback">
+                            <div *ngIf="jobs.deadlinetime.errors.required">Time is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="languages">Languages</label>
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <label for="source_language" class="small-label">Source language</label>
+                    <select class="custom-select" formControlName="source_language" [ngClass]="{ 'is-invalid': (submitted || isSourceVal) && jobs.source_language.errors }">
+                        <option value="">Select One</option>
+                        <option [value]="languagelist.name" *ngFor="let languagelist of languageList">{{languagelist.name}}</option>
+                    </select>
+                    <div *ngIf="(submitted || isSourceVal) && jobs.source_language.errors" class="invalid-feedback">
+                        <div *ngIf="jobs.source_language.errors.required">Source language is required</div>
+                        <div *ngIf="jobs.source_language.errors.matchLanguage">Same language can not be submitted</div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <label for="target_language" class="small-label">Target language</label>
+                    <select class="custom-select"  formControlName="target_language" [ngClass]="{ 'is-invalid': (submitted || isTargetVal) && jobs.target_language.errors }">
+                        <option value="">Select One</option>
+                        <option [value]="languagelist.name" *ngFor="let languagelist of languageList">{{languagelist.name}}</option>
+                    </select>
+                    <div *ngIf="(submitted || isTargetVal) && jobs.target_language.errors" class="invalid-feedback">
+                        <div *ngIf="jobs.target_language.errors.required">Target language is required</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <a mat-raised-button color="primary" (click)="onClickAddLanguage()" class="float-right editJob__addbtn">Add</a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Added Languages</label>
+            <div class="editJob__languagelist"  [ngClass]="{ 'is-invalid': addedLanguages.length < 1}">
+                <span *ngFor="let item of addedLanguages; let i=index" class="editJob__languagelist-item">
+                    {{item.source}} > {{item.target}} <button mat-raised-button color="accent" (click)="onClickDelete(i)" class="editJob__closebtn">x</button>
+                </span>
+            </div>
+            <div *ngIf="addedLanguages.length < 1" class="invalid-feedback">Languages required</div>
+        </div>
+        <div class="form-group">
+            <label for="job_description">Project description</label>
+            <textarea rows="8" formControlName="job_description" class="form-control" [ngClass]="{ 'is-invalid': submitted && jobs.job_description.errors }" ></textarea>
+            <div *ngIf="submitted && jobs.job_description.errors" class="invalid-feedback">
+                <div *ngIf="jobs.job_description.errors.required">Project description is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="subject_areas">Subject Areas</label>
+            <div class="checkbox-wrapper" [ngClass]="{ 'is-invalid': submitted && jobs.subject_areas.errors }">
+                <span *ngFor="let item of subject_areas; let i=index" class="checkbox-wrapper-item">
+                    <mat-checkbox (change)="onChangeSubject($event)" title="{{item.value}}" [checked]="item.checked" [value]="item.value" class="small-label">{{item.value}}</mat-checkbox>
+                </span>
+            </div>
+            <div *ngIf="submitted && jobs.subject_areas.errors" class="invalid-feedback">
+                <div *ngIf="jobs.subject_areas.errors.required">Subject Areas is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="software">Software</label>
+            <div class="checkbox-wrapper" [ngClass]="{ 'is-invalid': submitted && jobs.software.errors }">
+                <span *ngFor="let item of software; let i=index" class="checkbox-wrapper-item">
+                    <mat-checkbox (change)="onChangeSoftware($event)" title="{{item.value}}" [checked]="item.checked" [value]="item.value" class="small-label">{{item.value}}</mat-checkbox>
+                </span>
+            </div>
+            <div *ngIf="submitted && jobs.software.errors" class="invalid-feedback">
+                <div *ngIf="jobs.software.errors.required">Software is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Offered rate (optional)</label>
+            <div class="row">
+                <div class="col-12 col-sm-4">
+                    <label for="offered_value" class="small-label">Value</label>
+                    <input type="text" formControlName="offered_value" class="form-control" [ngClass]="{ 'is-invalid': submitted && jobs.offered_value.errors }" />
+                    <div *ngIf="submitted && jobs.offered_value.errors" class="invalid-feedback">
+                        <div *ngIf="jobs.offered_value.errors.required">Offered rate is required</div>
+                        <div *ngIf="jobs.offered_value.errors.pattern">Only Number</div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-5">
+                    <label for="currency_type" class="small-label">Dollars</label>
+                    <select class="custom-select" formControlName="currency_type" [ngClass]="{ 'is-invalid': submitted && jobs.currency_type.errors }">
+                        <option value="">Select One</option>
+                                <option [value]="list.name" *ngFor="let list of currencyList">{{list.name}}</option>
+                    </select>
+                    <div *ngIf="submitted && jobs.currency_type.errors" class="invalid-feedback">
+                        <div *ngIf="jobs.currency_type.errors.required">Currency Type is required</div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <label for="rate_per" class="small-label">Rate per</label>
+                    <select class="custom-select" formControlName="rate_per" [ngClass]="{ 'is-invalid': submitted && jobs.rate_per.errors }">
+                        <option value="">Select One</option>
+                        <option value="Word">Word</option>
+                        <option value="Hour">Hour</option>
+                    </select>
+                    <div *ngIf="submitted && jobs.rate_per.errors" class="invalid-feedback">
+                        <div *ngIf="jobs.rate_per.errors.required">Rate per is required</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Job location (optional)</label>
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <label for="country" class="small-label">Country</label>
+                    <select class="custom-select" formControlName="country" [ngClass]="{ 'is-invalid': submitted && jobs.country.errors }">
+                        <option value="">Select One</option>
+                        <option value="USA">USA</option>
+                        <option value="India">India</option>
+                    </select>
+                    <div *ngIf="submitted && jobs.country.errors" class="invalid-feedback">
+                        <div *ngIf="jobs.country.errors.required">Country is required</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Submit
+            </button>
+        </div>
+    </form>
+</section>
+<div class="messagelayer" *ngIf="message">
+    <p class="messagelayer__text">{{message}}</p>
+</div>

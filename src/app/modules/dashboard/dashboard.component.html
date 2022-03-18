@@ -1,0 +1,66 @@
+
+<section class="container-fluid p-0 dashboard">
+    <!-- <app-page-title-description   title="Login" smallTitle='true' description="Register for Translator or Interpretor"></app-page-title-description> -->
+    <div class="container-sm my-3">
+        <div class="row">
+            <div class="col-sm-3">
+                <app-side-menu></app-side-menu>
+            </div>
+            <div class="col-sm-9">
+                <h2 class="section-title">Dashboard</h2>
+                <div class="dashboard__userdetails">
+                    <ng-container *ngIf="accType != 'agency';then translator else agency"></ng-container>
+                    <ng-template #translator>
+                        <div class="dashboard__myprofile">
+                            <h3 class="topic-title">My Profile</h3>
+                            <app-dashboard-profile></app-dashboard-profile>
+                            <a routerLink="/user/profile" routerLinkActive="active" class="btn btn-primary float-right">View my profile</a>
+                        </div>
+                        <div class="dashboard__myQuotes">
+                            <app-my-quotes [count] ="3"></app-my-quotes>
+                            <div *ngIf="disabledMyQuotes && disabledMyQuotes.length > 0">
+                                <a routerLink="/quotes/my-quotes" routerLinkActive="active" class="btn btn-primary float-right">View all Quotes</a>
+                            </div>
+                        </div>
+                        <div class="dashboard__myjobs">
+                            <app-my-quoted-jobs [count]="2"></app-my-quoted-jobs>
+                            <div *ngIf="disabledMyQuotedJob && disabledMyQuotedJob.length > 0">
+                                <a routerLink="/jobs/my-quoted-jobs" routerLinkActive="active" class="btn btn-primary float-right">View Quoted jobs</a>
+                            </div>
+                        </div>
+                        <div class="dashboard__users">
+                            <h3 class="topic-title">Recently Joined Agency</h3>
+                            <app-user-table [userDetails]="userDetails" [userType]="'agencies'"></app-user-table>
+                            <a routerLink="/agencies" routerLinkActive="active" class="btn btn-primary float-right">View all Agency</a>
+                        </div>
+                    </ng-template>
+                    <ng-template #agency>
+                        <div class="dashboard__myprofile">
+                            <h3 class="topic-title">My Profile</h3>
+                            <app-dashboard-profile></app-dashboard-profile>
+                            <a routerLink="/user/profile" routerLinkActive="active" class="btn btn-primary float-right">View my profile</a>
+                        </div>
+                        <div class="dashboard__myjobs">
+                            <h3 class="topic-title">My Jobs</h3>
+                            <app-dashboard-jobs [userId] ="userId"></app-dashboard-jobs>
+                            <div *ngIf="disabledViewMyJob && disabledViewMyJob.length > 0">
+                                <a routerLink="/jobs/myjobs" routerLinkActive="active" class="btn btn-primary float-right">View my jobs</a>
+                            </div>
+                        </div>
+                        <div class="dashboard__myQuotes">
+                            <app-my-job-quotes [count] ="3"></app-my-job-quotes>
+                            <div *ngIf="disabledViewMyJob && disabledViewMyJob.length > 0">
+                                <a routerLink="/quotes/my-job-quotes" routerLinkActive="active" class="btn btn-primary float-right">View all Quotes</a>
+                            </div>
+                        </div>
+                        <div class="dashboard__users">
+                            <h3 class="topic-title">Recently Joined Translators</h3>
+                            <app-user-table [userDetails]="userDetails" [userType]="'translators'"></app-user-table>
+                            <a routerLink="/translators" routerLinkActive="active" class="btn btn-primary float-right">View all Translator</a>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

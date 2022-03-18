@@ -1,0 +1,62 @@
+<h2 class="section-title">Submit your quote</h2>
+<section class="submit-quote">
+<ng-container *ngIf="isQuoted;then existquote else newquote"></ng-container>
+<ng-template #existquote>
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="submit-quote__para">You already quoted this job. Please check your quotes</p>
+        </div>
+        <div class="col-6">
+            <div class="float-right"><a routerLink="/jobs/myjobs" class="btn btn-primary">My quote</a></div>
+        </div>
+        <div class="col-6">
+            <div class="float-left"><a routerLink="/jobs" class="btn btn-primary">Back to Jobs</a></div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #newquote>
+    <div *ngFor="let job of jobDetails; let i=index">
+        <div *ngIf="userDetails && jobDetails">
+            <p>You are offering your services to <a routerLink="/agencies/{{userDetails.id}}/details">{{userDetails.first_name}} {{userDetails.last_name}}</a> who posted job “{{job.job_title}}”</p>
+        </div>
+        <form [formGroup]="submitQuoteForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="subject_title">Subject</label>
+                <input type="text" [(ngModel)]="subjectTitle" formControlName="subject_title" class="form-control" [ngClass]="{ 'is-invalid': submitted && quote.subject_title.errors }" />
+                <div *ngIf="submitted && quote.subject_title.errors" class="invalid-feedback">
+                    <div *ngIf="quote.subject_title.errors.required">Subject title is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quotePrice">Quote Price</label>
+                <input type="text" formControlName="quotePrice" class="form-control" [ngClass]="{ 'is-invalid': submitted && quote.quotePrice.errors }" />
+                <div *ngIf="submitted && quote.quotePrice.errors" class="invalid-feedback">
+                    <div *ngIf="quote.quotePrice.errors.required">Quote Price is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quote_message">Quote message</label>
+                <textarea rows="8" formControlName="quote_message" class="form-control" [ngClass]="{ 'is-invalid': submitted && quote.quote_message.errors }" ></textarea>
+                <div *ngIf="submitted && quote.quote_message.errors" class="invalid-feedback">
+                    <div *ngIf="quote.quote_message.errors.required">Quote message is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <mat-checkbox formControlName="copy_letter" (change)="onChangeCopy($event)" [value]="copyLeter" class="small-label">Send a copy to yourself</mat-checkbox>
+            </div>
+            <div class="form-group">
+                <mat-checkbox formControlName="profile_letter" (change)="onChangeProfile($event)"  [value]="profileLeter" class="small-label">Include a link to your profile in this letter</mat-checkbox>
+            </div>
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+</section>
+<div class="messagelayer" *ngIf="message">
+    <p class="messagelayer__text">{{message}}</p>
+</div>

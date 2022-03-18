@@ -1,0 +1,27 @@
+<div *ngFor="let job of jobDetails | slice:0:3; let i=index" class="dashboardjobs">
+    <div class="row">
+        <div class="col-12">
+            <h3><a routerLink="/jobs/{{job.jobid}}/details">{{job.job_title}}</a></h3>
+        </div>
+    </div>
+    <div class="dashboardjobs__content">
+        <div class="dashboardjobs__item">
+            <h4>{{job.job_type}}</h4>
+            <p class="maxline-fix"><strong>Subject: </strong>{{job.subject_areas | replacePipe : ',' : ', '}}</p>
+        </div>
+        <div class="dashboardjobs__item">
+            <span><strong>Languages: </strong></span>
+            <ul *ngFor="let lang of job.languages; let i=index" class="dashboardjobs__languages">
+                <span *ngIf="i<3">
+                    <li>{{lang.source}} to {{lang.target}}</li>
+                </span>
+            </ul>
+            <span *ngIf="job.languages.length > 3"><a routerLink="/jobs/{{job.jobid}}/details" class="link">More</a></span>
+        </div>
+        <div class="dashboardjobs__item">
+            <p class="dashboardjobs__posteddate"><strong>Posted: </strong><span>{{job.date}}</span></p>
+        </div>
+        <div class="dashboardjobs__item"><a routerLink="/jobs/{{job.jobid}}/details" class="link more-link"><span>More </span><span class="material-icons">chevron_right</span></a></div>
+    </div>
+</div>
+<div *ngIf="!jobDetails || jobDetails.length === 0;">No Jobs<br><a class="nav-links" [routerLink]="'/jobs/post-job'" routerLinkActive="active">Post your new job</a></div>

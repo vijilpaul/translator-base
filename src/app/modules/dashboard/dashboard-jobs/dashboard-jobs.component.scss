@@ -1,0 +1,71 @@
+@import "../../../../assets/styles/variables";
+.dashboardjobs{
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 12px;
+    &:last-child{
+        border: 0;
+    }
+    h3{
+        font-size: 1.2em;
+        font-weight: 500;
+        text-transform: capitalize;
+        margin-bottom: 5px;
+        color: $app-color-primary;
+        a{
+            color: $app-color-primary;
+            &:hover{
+                color: $app-color-secondary; 
+            }
+        }
+    }
+    h4{
+        color: $text-color-primary;
+        margin-bottom: 5px;
+    }
+    &__languages{
+        li{
+            font-size: 1em;
+        }
+    }
+    a.more-link{
+        color: $app-color-primary; 
+        float: right;
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        &:hover, &:visited, &:focus{
+            text-decoration: none;
+            color: $app-color-secondary; 
+        }
+    }
+    &__posteddate{
+        span{
+            display: block;
+        }
+    }
+    &__content{
+        display: flex;
+        justify-content: space-between;
+        margin: 0 -10px;
+    }
+    &__item{
+        padding: 10px;
+        width: 25%;
+        &:first-child{
+            flex-basis: 300px
+        }
+        &:last-child{
+            flex-basis: 70px
+        }
+    }
+}
+@media screen and (max-width:767px){
+    .dashboardjobs{
+        &__content{
+            flex-wrap: wrap;
+        }
+        &__item{
+            width: 100%;
+        }
+    }
+}

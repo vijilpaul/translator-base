@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" width="25" height="25">
+	<defs>
+		<image width="25" height="25" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAXNSR0IB2cksfwAAAPZQTFRF/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAAsyrJuwAAAFJ0Uk5TjisABlCFlv+8SAQBF3HpOyL84XUaOKT5v5j1mjACDFXGPCP+vlYKIIHjwKbzwpzZSS/HqP2p7Drns53xTzmynvBOsQWn8ldE67hNuqP3KrmiKeK7+pUAAADqSURBVHicbdLXWgIxEIbh+EcdWQssYicKImsBe0FFlKKCCqj3fzNmw24KZo4y8z7fWRibgWf47Bybp4VM4J4Xl5ZXKMtyIVF+tWDuwdr6BtEmGLZIzvZOUaj77l4p3qksZT9Uz8pBNcLh0bFa6ARSRG2yUP307DxM3hex4DJdzVxxJeL6n8gkFhRvpqDEExG3FQfu4kQJGveOPHAt4tGG5hO0oGVHz9wS8WKg3YEldtTtORK8pvD2DkfQHyTyEU1JGulESxrpxMgkMokRfDalfEUeCYZEowY8gnGbvnteET+jFryC35r9vf4AVNAbw9hvKusAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Layer 1 copy" href="#img1" x="0" y="0" />
+</svg>

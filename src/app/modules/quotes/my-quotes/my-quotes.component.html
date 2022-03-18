@@ -1,0 +1,34 @@
+<section class="myquotes">
+    <h3 class="topic-title">My Quotes</h3>
+    <ng-container *ngFor="let quote of quoteDetails; let i=index">
+        <div class="myquotes__wrap" *ngIf="i < count">
+            <div class="myquotes__header">
+                <p>Quote Title: {{quote.subject_title}}</p>
+                <p>Quote Date : {{quote.quoteDate}}</p>
+                <p>Job Id: <a routerLink="/jobs/{{quote.jobID}}/details">{{quote.jobID}}</a></p>
+            </div>
+            <div class="myquotes__details">
+                <table class="myquotes__table">
+                    <tr><th>Quote Price</th><th>Quote Message</th><th>Copy Letter</th><th>Profile Letter</th><th></th></tr>
+                    <tr>
+                        <td>{{quote.quotePrice}}</td>
+                        <td>{{quote.quote_message}}</td>
+                        <td>
+                            <ng-container *ngIf="quote.copy_letter === ''; then copyFalse; else copyTrue"></ng-container> 
+                            <ng-template #copyFalse >False</ng-template>
+                            <ng-template #copyTrue>True</ng-template>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="quote.profile_letter === ''; then profileFalse; else profileTrue"></ng-container> 
+                            <ng-template #profileFalse >False</ng-template>
+                            <ng-template #profileTrue>True</ng-template>
+                        </td>
+                        <td><a routerLink="/quotes/{{quote.quoteID}}/details">View Details</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </ng-container>
+    <div *ngIf="!quoteDetails || quoteDetails.length === 0">No Quotes</div>
+</section>
+

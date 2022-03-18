@@ -1,0 +1,51 @@
+@import "../../../../assets/styles/variables";
+.tablefilter{
+    margin: 25px 0;
+    &__profile-img{
+        width: 100px;
+        height: 100px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        img{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    &__profile{
+        h4{
+            margin-bottom: 15px;
+            text-transform: capitalize;
+            font-size: 1em;
+            font-weight: 500;
+            a{
+                color: $app-color-primary;
+            }
+        }
+        p{
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+    }
+    &__table { 
+        width: 100%;
+        margin: 10px 0;
+        tr:nth-of-type(odd) { 
+            background: #f9f9f9; 
+        }
+        th { 
+            background: $app-color-primary; 
+            color: white; 
+        }
+        td, th { 
+            padding: 10px; 
+            border-bottom: 1px solid #ccc; 
+            text-align: left; 
+        }
+    }
+    &__languages{
+        font-size: 0.9em;
+    }
+}

@@ -1,0 +1,27 @@
+<h2 class="section-title">Agency Details</h2>
+<p class="float-right"><a routerLink="/agencies" class="btn btn-primary">Back to agency</a></p>
+<table class="table profile__tbl" *ngFor="let profile of agencyDetails">
+    <tr><th>Account Type</th><td  *ngIf="profile.account_type==='agency'">Translation agency/company employee or owner</td></tr>
+    <tr><th>Name</th><td class="capital-text">{{profile.first_name}} {{profile.last_name}}</td></tr>
+    <tr><th>Username</th><td>{{profile.username}}</td></tr>
+    <tr><th>Email</th><td>{{profile.email}}</td></tr>
+    <tr><th>Phone Number</th><td>{{profile.phone_number}}</td></tr>
+    <tr><th>Mobil Number</th><td>{{profile.mobile_number}}</td></tr>
+    <tr><th>Fax Number</th><td>{{profile.fax_number}}</td></tr>
+    <tr><th>Address</th><td class="capital-text">{{profile.address}}, {{profile.city}}, {{profile.state}}, {{profile.postal_code}}</td></tr>
+    <tr><th>Country</th><td>{{profile.country}}</td></tr>
+    <tr>
+        <th>Languages</th>
+        <td>
+            <ul *ngFor="let lang of profile.languages">
+                <li>{{lang.source}} to {{lang.target}}</li>
+            </ul>
+        </td>
+    </tr>
+    <tr><th>Native Language</th><td>{{profile.native_language}}</td></tr>
+    <tr><th>Subject Areas</th><td>{{profile.subject_areas}}</td></tr>
+    <tr><th>Services</th><td>{{profile.services | replacePipe : ',' : ', '}}</td></tr>
+    <tr><th>Expertise</th><td>{{profile.expertise | replacePipe : ',' : ', '}}</td></tr>
+    <tr><th>Software</th><td>{{profile.software | replacePipe : ',' : ', '}}</td></tr>
+    <tr><th>Summary</th><td class="resume">{{profile.summary}}</td></tr>
+</table>

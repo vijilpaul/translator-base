@@ -1,0 +1,23 @@
+<!-- <app-header></app-header> -->
+<!-- <app-page-title-description   title="Gold Rate in India" smallTitle='true' description="Gold rate in India change on a daily basis, with a number of factors impacting their price in a particular place on a given day. Demand and supply, global market conditions and currency fluctuations are some of the most critical factors which go into determining the rate of gold in a country, with prices changing every day."></app-page-title-description> -->
+        
+<app-home-container></app-home-container>
+<!-- <app-footer></app-footer> -->
+<div class="home">
+    <ul *ngFor="let user of userDetails" style="padding: 50px;">
+        <li>
+            <div>{{user.account_type}}</div>
+            <div>{{user.email}}</div>
+            <div>{{user.expertise | replacePipe : ',' : ', ' }}</div>
+            <div>
+                <ul *ngFor="let lang of user.languages">
+                    <li>Source: {{lang.source}}</li>
+                    <li>Target: {{lang.target}}</li>
+                </ul>
+            </div>
+            <div>{{user.services | replacePipe : ',' : ', '}}</div>
+            <div class="resume">{{user.summary}}</div>
+        </li>
+    </ul>
+    <!-- {{userDetails | async}} -->
+</div>

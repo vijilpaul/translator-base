@@ -1,0 +1,230 @@
+<section class="profileedit">
+    <div class="profileedit_step">
+        <ul class="profileedit_progress">
+            <li [ngClass]="step == 1 ? 'active ' : 'inactive'">Personal Details</li>
+            <li [ngClass]="step == 2 ? 'active' : 'inactive'">Address Details</li>
+            <li [ngClass]="step == 3 ? 'active' : 'inactive'">Service Details</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form [formGroup]="personalDetails">
+                <fieldset  *ngIf="step == 1" >
+                    <h2 class="fs-title">Personal Details</h2>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="account_type">Account type</label>
+                            <input type="text" formControlName="account_type" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" formControlName="first_name" class="form-control" [ngClass]="{ 'is-invalid': personal_step && personal.first_name.errors }" />
+                        <div *ngIf="personal_step && personal.first_name.errors" class="invalid-feedback">
+                            <div *ngIf="personal.first_name.errors.required">First Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" formControlName="last_name" class="form-control" [ngClass]="{ 'is-invalid': personal_step && personal.last_name.errors }" />
+                        <div *ngIf="personal_step && personal.last_name.errors" class="invalid-feedback">
+                            <div *ngIf="personal.last_name.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" formControlName="username" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your email address</label>
+                        <input type="text" formControlName="email" class="form-control" readonly />
+                    </div>
+                    <input (click)="next()" type="button" name="next" class="btn btn-primary float-right" value="Next"/>
+                </fieldset>
+            </form>
+            <form [formGroup]="addressDetails" id="msform">
+                <fieldset *ngIf="step == 2" >
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': address_step && address.address.errors }" />
+                        <div *ngIf="address_step && address.address.errors" class="invalid-feedback">
+                            <div *ngIf="address.address.errors.required">Address is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': address_step && address.city.errors }" />
+                        <div *ngIf="address_step && address.city.errors" class="invalid-feedback">
+                            <div *ngIf="address.city.errors.required">City is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select class="custom-select" formControlName="country"[ngClass]="{ 'is-invalid': address_step && address.country.errors }">
+                            <option value="">Select One</option>
+                            <option value="USA">USA</option>
+                            <option value="India">India</option>
+                        </select>
+                        <div *ngIf="address_step && address.country.errors" class="invalid-feedback">
+                            <div *ngIf="address.country.errors.required">Please Select Country</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select class="custom-select" formControlName="state"[ngClass]="{ 'is-invalid': address_step && address.state.errors }">
+                            <option value="">Select One</option>
+                            <option value="USA">USA</option>
+                            <option value="India">India</option>
+                        </select>
+                        <div *ngIf="address_step && address.state.errors" class="invalid-feedback">
+                            <div *ngIf="address.state.errors.required">Please Select state</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="postal_code">Postal Code</label>
+                        <input type="text" formControlName="postal_code" class="form-control" [ngClass]="{ 'is-invalid': address_step && address.postal_code.errors }" />
+                        <div *ngIf="address_step && address.postal_code.errors" class="invalid-feedback">
+                            <div *ngIf="address.postal_code.errors.required">Postal Code is required</div>
+                            <div *ngIf="address.postal_code.errors.minlength">Postal Code is minimum 5 characters</div>
+                            <div *ngIf="address.postal_code.errors.maxlength">Postal Code is Maximum 8 characters</div>
+                            <div *ngIf="address.postal_code.errors.pattern">Only Number and characters</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number</label>
+                        <input type="text" formControlName="phone_number" class="form-control" [ngClass]="{ 'is-invalid': address_step && address.phone_number.errors }" />
+                        <div *ngIf="address_step && address.phone_number.errors" class="invalid-feedback">
+                            <div *ngIf="address.phone_number.errors.required">Phone Number is required</div>
+                            <div *ngIf="address.phone_number.errors.minlength">Phone Number is minimum 10 characters</div>
+                            <div *ngIf="address.phone_number.errors.maxlength">Phone Number is Maximum 12 characters</div>
+                            <div *ngIf="address.phone_number.errors.pattern">Only Number</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile_number">Mobile Number</label>
+                        <input type="text" formControlName="mobile_number" class="form-control" [ngClass]="{ 'is-invalid': address_step && address.mobile_number.errors }" />
+                        <div *ngIf="address_step && address.mobile_number.errors" class="invalid-feedback">
+                            <div *ngIf="address.mobile_number.errors.required">Mobile Number is required</div>
+                            <div *ngIf="address.mobile_number.errors.minlength">Mobile Number is minimum 10 characters</div>
+                            <div *ngIf="address.mobile_number.errors.maxlength">Mobile Number is Maximum 12 characters</div>
+                            <div *ngIf="address.mobile_number.errors.pattern">Only Number</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fax_number">Fax Number</label>
+                        <input type="text" class="form-control" formControlName="fax_number"/>
+                    </div>
+                    <input (click)="previous()" type="button" name="previous" class="btn btn-primary float-left" value="Previous"/>
+                    <input  (click)="next()" type="button" name="next" class="btn btn-primary float-right" value="Next"/>
+                </fieldset>
+            </form>
+            <form [formGroup]="otherDetails" id="msform">
+                <fieldset *ngIf="step == 3">
+                    <div class="form-group">
+                        <label for="summary">Summary</label>
+                        <textarea formControlName="summary" class="form-control" [ngClass]="{ 'is-invalid': other_step && others.summary.errors }" placeholder="Add additional summary here."></textarea>
+                        <div *ngIf="other_step && others.summary.errors" class="invalid-feedback">
+                            <div *ngIf="others.summary.errors.required">Summary is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="languages">Languages</label>
+                        <div class="row">
+                            <div class="col-sm-6 col-12">
+                                <label for="source_language">Source language</label>
+                                <select class="custom-select" (change)="onChangeSource($event)">
+                                    <option value="">Select One</option>
+                                    <option [value]="languagelist.name" *ngFor="let languagelist of languageList">{{languagelist.name}}</option>
+                                </select>
+                                <div *ngIf="isSourceVal" [ngClass]="{ 'is-invalid': isSourceVal }"><div class="invalid-feedback">Please select source values</div></div>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <label for="target_language">Target language</label>
+                                <select class="custom-select" (change)="onChangeTarget($event)">
+                                    <option value="">Select One</option>
+                                    <option [value]="languagelist.name" *ngFor="let languagelist of languageList">{{languagelist.name}}</option>
+                                </select>
+                                <div *ngIf="isTargetVal" [ngClass]="{ 'is-invalid': isTargetVal }"><div class="invalid-feedback">Target Language is not same as Source</div></div>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <div *ngIf="isNotSelectLanguage" [ngClass]="{ 'is-invalid': isNotSelectLanguage }"><div class="invalid-feedback">Please select Source and Target Languages</div></div>
+                                <input (click)="onClickAddLanguage()" type="button" name="add-language" class="btn btn-primary" value="Add Language"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div *ngFor="let item of addedLanguages; let i=index">
+                                <label>
+                                {{item.source}} > {{item.target}} <span (click)="onClickDelete(i)">X</span>
+                                </label>
+                            </div>
+                            <div *ngIf="languageRequired" [ngClass]="{ 'is-invalid': languageRequired}"><div class="invalid-feedback">Languages required</div></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="native_language">Native language</label>
+                        <select class="custom-select" formControlName="native_language" [ngClass]="{ 'is-invalid': other_step && others.native_language.errors }">
+                            <option value="">Select One</option>
+                                    <option [value]="languagelist.name" *ngFor="let languagelist of languageList">{{languagelist.name}}</option>
+                        </select>
+                        <div *ngIf="other_step && others.native_language.errors" class="invalid-feedback">
+                            <div *ngIf="others.native_language.errors.required">Native language</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="services">Services</label>
+                        <div class="checkbox-wrapper">
+                            <div *ngFor="let item of seviceList; let i=index" formArrayName="services" class="three-rows">
+                                <label>
+                                <input type="checkbox" [formControlName]="i" [value]="item.value"  />
+                                {{item.value}}
+                                </label>
+                            </div>
+                        </div>
+                        <div *ngIf="this.otherDetails.controls['services'].errors?.required" [ngClass]="{ 'is-invalid': this.otherDetails.controls['services'].errors?.required }"><div class="invalid-feedback">Services required</div></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject_areas">Subject Areas</label>
+                        <div class="checkbox-wrapper">
+                            <span *ngFor="let item of subjectAreaList; let i=index" formArrayName="subject_areas" class="three-rows">
+                                <label>
+                                <input type="checkbox" [formControlName]="i" [value]="item.value" />
+                                {{item.value}}
+                                </label>
+                            </span>
+                        </div>
+                        <div *ngIf="this.otherDetails.controls['subject_areas'].errors?.required" [ngClass]="{ 'is-invalid': this.otherDetails.controls['subject_areas'].errors?.required }"><div class="invalid-feedback">Subject Areas required</div></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="services">Expertise</label>
+                        <div class="checkbox-wrapper">
+                            <span *ngFor="let item of expertiseList; let i=index" formArrayName="expertise" class="two-rows">
+                                <label>
+                                <input type="checkbox" [formControlName]="i" [value]="item.value" />
+                                {{item.value}}
+                                </label>
+                            </span>
+                        </div>
+                        <div *ngIf="this.otherDetails.controls['expertise'].errors?.required" [ngClass]="{ 'is-invalid': this.otherDetails.controls['expertise'].errors?.required }"><div class="invalid-feedback">Expertise required</div></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="software">Software</label>
+                        <div class="checkbox-wrapper">
+                            <span *ngFor="let item of softwareList; let i=index" formArrayName="software" class="three-rows">
+                                <label>
+                                <input type="checkbox" [formControlName]="i" [value]="item.value" />
+                                {{item.value}}
+                                </label>
+                            </span>
+                        </div>
+                        <div *ngIf="this.otherDetails.controls['software'].errors?.required" [ngClass]="{ 'is-invalid': this.otherDetails.controls['software'].errors?.required }"><div class="invalid-feedback">Software required</div></div>
+                    </div>
+                    <input (click)="previous()" type="button" name="previous" class="btn btn-primary float-left" value="Previous"/>
+                    <input (click)="submit()" type="submit" name="submit" class="btn btn-primary float-right" value="Submit"/>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</section>
+<div class="messagelayer" *ngIf="message">
+    <p class="messagelayer__text">{{message}}</p>
+</div>

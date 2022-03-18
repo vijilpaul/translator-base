@@ -1,0 +1,49 @@
+@import "../../../assets/styles/variables";
+.header{
+    position: relative;
+    &__logo{
+        width: 60%;
+        display: inline-block;
+        @media (min-width: 768px) {
+            width: 20%;
+        }
+    }
+    &__register{
+        float: right;
+        li{
+            float: left;
+            padding: 1rem 3rem;
+            a{
+                position: relative;
+                text-decoration: none;
+            }
+        }
+    }
+    &__nav{
+        position: relative;
+        ul{
+            float: right;
+            li{
+                float: left;
+                padding: 1rem 3rem;
+                a{
+                    position: relative;
+                    text-decoration: none;
+                    &:after{
+                        content: '';
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        width: 0%;
+                        height: 2px;
+                        background: $white;
+                        transition: all .5s linear;
+                    }
+                    &.active:after, &:hover:after{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+@import "../../../../assets/styles/variables";
+.quote-details{
+    margin: 15px 0;
+    &__tbl{
+        margin: 20px 0;
+        border: 1px solid #ccc;
+        tr{
+            th{
+                border:0;
+                width:40%;
+                vertical-align: middle;
+                padding: 10px;
+            }
+            td{
+                border:0;
+                width:60%;
+                padding: 10px;
+                a{
+                    color: $app-color-primary;
+                }
+            }
+            &:nth-child(2n){
+                background-color: #f7f6f6;
+            }
+        }
+    }
+}

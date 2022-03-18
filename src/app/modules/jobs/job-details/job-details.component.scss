@@ -1,0 +1,76 @@
+@import "../../../../assets/styles/variables";
+.job-details{
+    clear: both;
+    margin: 10px 0;
+    width: 100%;
+    .col-12{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    &__jobtitle{
+        font-size: 1.4em;
+        font-weight: 500;
+        text-transform: capitalize;
+        margin-bottom: 0px;
+        color: $app-color-primary;
+        margin-top: 10px;
+    }
+    &__posteddate{
+        font-size: 0.8em;
+        color: $app-color-secondary;
+    }
+    p{
+        margin-bottom: 5px;
+    }
+    &__languages{
+        padding-bottom: 10px;
+        ul{
+            display: inline-block;
+            background: #eee;
+            padding: 1px 8px;
+            margin-right: 5px;
+            font-size: 0.9em;
+            border-radius: 4px;
+        }
+    }
+    &__description{
+        background: #fbfbfb;
+        padding: 10px;
+        border: 1px solid #e4e4e4;
+        min-height: 200px;
+    }
+    .quote-wrap{
+        margin: 5px 15px;
+        display: inline-block;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        h4{
+            margin-bottom: 15px;
+            text-transform: capitalize;
+            font-size: 1em;
+            font-weight: 500;
+            a{
+                color: $app-color-primary;
+            }
+        }
+        p{
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+    }
+    a.more-link{
+        color: $app-color-primary; 
+        float: right;
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        &:hover{
+            text-decoration: none;
+            color: $app-color-secondary; 
+        }
+    }
+    a.more{
+        color: $app-color-primary; 
+        font-weight: 500;
+    }
+}

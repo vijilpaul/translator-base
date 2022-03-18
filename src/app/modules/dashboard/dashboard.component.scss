@@ -1,0 +1,23 @@
+@import "../../../assets/styles/variables";
+.dashboard{
+    &__userdetails{
+        margin: 15px 0;
+        border:1px solid #ccc;
+        padding:20px;
+        .btn{
+            color: $white;
+            background: $app-color-primary;
+            border: 0;
+            border-radius: 4px;
+            padding: 5px 20px;
+            overflow: hidden;
+            &:hover{
+                background: $app-color-secondary;
+            }
+        }
+    }
+    &__myprofile, &__myjobs, &__users{
+        padding-bottom: 25px;
+        clear: both;
+    }
+}

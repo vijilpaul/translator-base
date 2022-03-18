@@ -1,0 +1,77 @@
+.editJob{
+    &__box{
+        border:1px solid #ccc;
+        padding: 0 10px;
+    }
+    &__radio-group {
+        display: flex;
+        flex-direction: column;
+        margin: 15px 0;
+    }
+      
+    &__radio-button {
+        margin: 5px;
+    }
+    &__languagelist{
+        margin: 10px 0;
+        &-item{
+            padding: 5px 8px 5px 12px;
+            font-size: 0.9em;
+            background: #eaeaea;
+            margin: 3px;
+            display: inline-block;
+            border-radius: 7px;
+        }
+    }
+    &__closebtn{
+        padding: 2px 6px;
+        min-width: 10px;
+        font-size: 1.1em;
+        line-height: 1;
+        margin-left: 5px;
+    }
+    &__addbtn{
+        margin: 3px 0;
+        &:hover, &:focus{
+            text-decoration: none;
+        }
+    }
+    &__chkbox{
+        padding: 2px 6px;
+        min-width: 10px;
+        font-size: 1.1em;
+        line-height: 1;
+        margin-left: 5px;
+    }
+    .checkbox-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .checkbox-wrapper-item{
+            padding: 2px 6px;
+            width: 30%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            .mat-checkbox{
+                width: 100%;
+            }
+        }
+    }
+}
+:host::ng-deep.mat-checkbox-layout{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: inherit;
+}
+.agreeterms{
+    input[type=checkbox]{
+        display: inline;
+        margin-right: 10px;
+    }
+    label{
+        display: inline;
+    }
+}

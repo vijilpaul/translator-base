@@ -1,0 +1,64 @@
+
+@import "../../../../assets/styles/variables";
+.joblist{
+    margin: 25px 0;
+    &__table { 
+        width: 100%;
+        margin: 0;
+        td{ 
+            padding: 5px; 
+            border-bottom: 1px solid #ccc; 
+            text-align: left;
+            border:0;
+            &:first-child{
+                max-width: 300px;
+            }
+        }
+        tr{
+            &:nth-child(2n){
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 5px;
+            }
+        }
+    }
+    h3{
+        font-size: 1.2em;
+        font-weight: 500;
+        text-transform: capitalize;
+        margin-bottom: 5px;
+        color: $app-color-primary;
+        margin-top: 10px;
+        a{
+            color: $app-color-primary;
+            text-decoration: none;
+            &:hover{
+                color: $app-color-secondary; 
+            }
+        }
+    }
+    h4{
+        color: $text-color-primary;
+        margin-bottom: 5px;
+    }
+    &__languages{
+        li{
+            font-size: 1em;
+        }
+    }
+    a.more-link{
+        color: $app-color-primary; 
+        float: right;
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        &:hover{
+            text-decoration: none;
+            color: $app-color-secondary; 
+        }
+    }
+    &__posteddate{
+        span{
+            display: block;
+        }
+    }
+}

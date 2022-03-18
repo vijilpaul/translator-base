@@ -1,0 +1,25 @@
+.profile{
+    .section-title{
+        margin-bottom: 15px;
+    }
+    &__tbl{
+        position: relative;
+        margin: 15px 0 50px;
+        border: 1px solid #f3cdcd;
+        display: inline-block;
+        tr{
+            th{
+                background: #ffeaea;
+                min-width: 100px;
+                vertical-align: middle;
+                border-color: #f3cdcd;
+                @media screen and (min-width:767px){
+                    min-width: 200px;
+                }
+            }
+            td{
+                border-color: #f3cdcd;
+            }
+        }
+    }
+}

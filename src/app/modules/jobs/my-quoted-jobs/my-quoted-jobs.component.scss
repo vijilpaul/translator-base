@@ -1,0 +1,41 @@
+@import "../../../../assets/styles/variables";
+.quoted-jobs{
+    margin: 2rem 0;
+    &__wrap{
+        margin: 2.5rem 0;
+    }
+    &__tbl{
+        width: 100%;
+        tr{
+            th{
+                width: 12rem;
+                padding: 1rem;
+                border: 1px solid #eee;
+                vertical-align: top;
+            }
+            td{
+                vertical-align: top;
+                padding: 1rem;
+                border: 1px solid #eee;
+                text-transform: capitalize;
+                &:last-child{
+                    width: 12rem;
+                }
+                a{
+                    color: $app-color-primary;
+                    font-weight: 500;
+                    &:hover{
+                        color: $app-color-secondary;
+                    }
+                }
+            }
+            
+        }
+    }
+    &__header{
+        
+    }
+    &__content{
+
+    }
+}

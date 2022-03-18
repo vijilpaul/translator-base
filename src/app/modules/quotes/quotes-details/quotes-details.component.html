@@ -1,0 +1,47 @@
+<section class="quote-details">
+    <h3 class="topic-title">Quote Details</h3>
+    <ng-container *ngIf="isAgency;then agency else translator"></ng-container>
+    <ng-template #agency>
+        <p class="float-right"><a routerLink="/quotes/my-job-quotes" class="btn btn-primary">Back to Quotes</a></p>
+    </ng-template>
+    <ng-template #translator>
+        <p class="float-right"><a routerLink="/quotes/my-quotes" class="btn btn-primary">Back to Quotes</a></p>
+    </ng-template>
+    <table class="table quote-details__tbl" *ngFor="let quote of quoteDetails">
+        <tr><th>Job Title</th><td class="capital-text">{{quote.subject_title}}</td></tr>
+        <tr><th>Job ID</th><td><a routerLink="/jobs/{{quote.jobID}}/details">#{{quote.jobID}}</a></td></tr>
+        <tr><th>Quote Message</th><td class="resume">{{quote.quote_message}}</td></tr>
+        <tr><th>Quote Price</th><td>{{quote.quotePrice}}</td></tr>
+        <tr>
+            <th>Include a link to your user in this letter</th>
+            <td>
+                <ng-container *ngIf="quote.profile_letter;then yesLetter else noLetter"></ng-container>
+                <ng-template #yesLetter>Yes</ng-template>
+                <ng-template #noLetter>No</ng-template>
+            </td>
+        </tr>
+        <tr>
+            <th>Send a copy to yourself</th>
+            <td>
+                <ng-container *ngIf="quote.copy_letter;then yesCopy else noCopy"></ng-container>
+                <ng-template #yesCopy>Yes</ng-template>
+                <ng-template #noCopy>No</ng-template>
+            </td>
+        </tr>
+        <tr>
+            <th>Contact Details</th>
+            <td>
+                <ng-container *ngFor="let user of contactDetails">
+                    <table *ngIf="user.id === quote.userID" class="">
+                        <tr><th>Contact Name</th><td class="capital-text">{{user.first_name}} {{user.last_name}}</td></tr>
+                        <tr><th>Contact Email</th><td>{{user.email}}</td></tr>
+                        <tr><th>Contact Phone Number</th><td>{{user.phone_number}}</td></tr>
+                        <tr><th>Contact Mobil Number</th><td>{{user.mobile_number}}</td></tr>
+                        <tr><th></th><td align="right"><a routerLink="/translators/{{user.id}}/details">More contact ></a></td></tr>
+                    </table>
+                    
+                </ng-container>
+            </td>
+        </tr>
+    </table>
+</section>

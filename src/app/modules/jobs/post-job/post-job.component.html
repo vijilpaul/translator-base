@@ -1,0 +1,13 @@
+
+<h1>Post Job</h1>
+<div *ngIf="!isNotLoggedIn">
+    <p>Please login to post the jobs for agencies</p>
+    <app-login-form></app-login-form>
+</div>
+<div *ngIf="isNotAgency">
+    <p>Job posting only for the agencies</p>
+</div>
+<div *ngIf="isAgency">
+    <p>Please submit your job posting</p>
+    <app-post-job-form [userId]="userId"></app-post-job-form>
+</div>

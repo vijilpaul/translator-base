@@ -1,0 +1,7 @@
+<div class="side-menu">
+    <ul aria-label="Side navigation" class="side-menu__nav">
+        <li *ngFor="let nav of menuLinks">
+            <a [routerLink]="'/dashboard/'+ nav.link" routerLinkActive="active">{{nav.title}}</a>
+        </li>
+    </ul>
+</div>

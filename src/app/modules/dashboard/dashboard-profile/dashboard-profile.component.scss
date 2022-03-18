@@ -1,0 +1,17 @@
+.dashboardprofile{
+    padding: 10px 0;
+    &__tbl{
+        width: 100%;
+        th{
+            padding: 5px 10px;
+            min-width: 16rem;
+        }
+        td{
+            padding: 5px 10px;
+        }
+    }
+    &__img{
+        width: 100%;
+        border-radius: 7px;
+    }
+}

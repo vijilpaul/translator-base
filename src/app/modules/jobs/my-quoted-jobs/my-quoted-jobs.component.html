@@ -1,0 +1,18 @@
+<section class="quoted-jobs">
+    <h3 class="topic-title">My Quoted Jobs</h3>
+    <ng-container *ngFor="let job of jobDetails; let i=index">
+        <ng-container *ngFor="let quote of quoteDetails; let i=index">
+            <div *ngIf="quote.jobID === job.jobid">
+                <div class="quoted-jobs__wrap" *ngIf="i < count">
+                    <table class="quoted-jobs__tbl">
+                        <tr><th>Job Title:</th><td colspan="5">{{job.job_title}}</td></tr>
+                        <tr><th>Job Type:</th><td>{{job.job_type}}</td><th>Price:</th><td>{{job.currency_type}} {{job.offered_value}} per {{job.rate_per}}</td><th>Job Id:</th><td><a routerLink="/jobs/{{job.jobid}}/details">{{job.jobid}}</a></td></tr>
+                        <tr><th>Software:</th><td colspan="5">{{job.software | replacePipe : ',' : ', '}}</td></tr>
+                        <tr><th>Subject Areas:</th><td colspan="4">{{job.subject_areas | replacePipe : ',' : ', '}}</td><td colspan="2"><a routerLink="/jobs/{{job.jobid}}/details">More details > </a></td></tr>
+                    </table>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+    <div *ngIf="!quoteDetails || quoteDetails.length === 0">No Quoted Jobs</div>
+</section>
