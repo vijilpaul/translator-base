@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../../../core/api.service';
 
 @Component({
@@ -12,30 +13,15 @@ export class ProfileComponent implements OnInit {
   saveform = false;
   username:any;
   password:any;
-  constructor(private apiService: ApiService) { }
+  notificationDetails:any;
+  
+  constructor(private apiService: ApiService, private route: Router) { }
   ngOnInit() {
-    this.profileUser();
+    this.profileDetails.push(this.apiService.getAuthentication());
     this.username = this.profileDetails[0].username;
-    this.password = this.profileDetails[0].password;
   }
   editUser() {
-    this.saveform = true;
-  }
-  
-  profileUser(){
-    this.profileDetails = [];
-    this.apiService.getAuthentication().map((user: { languages: string; }) => {
-      user.languages = JSON.parse(user.languages)
-      this.profileDetails.push(user);
-    })
-  }
-  saveForm(val:any){
-    localStorage.removeItem('currentUser');
-    this.apiService.login(this.username, this.password);
-    setTimeout(() => {
-      this.profileUser();
-    }, 200);
-    this.saveform = val;
+    this.route.navigate(['/user/profile/'+ this.username + '/edit']);
   }
 
 }

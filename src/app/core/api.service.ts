@@ -7,43 +7,45 @@ import { map, switchMap  } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Jobs } from './jobs-model';
 import { Quote } from './quote-model';
+import { Database, ref, set, get, child, update } from "@angular/fire/database";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  public apiLocalUrl = 'http://localhost/translator-db/';
+  public apiLocalUrl = 'https://translator-base-default-rtdb.firebaseio.com/';
   apiDetails:any;
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private db: Database) {
   }
 
   getUserDetails(){
-    return this.http.get<Register[]>(this.apiLocalUrl + 'user-list.php');
+    // const starCountRef = ref(this.db, 'user-list/');
+    // return onValue(starCountRef, (snapshot) => snapshot.val());
+    return this.http.get<Register[]>(this.apiLocalUrl + 'user-list.json');
+    // return this.http.get<Register[]>(this.apiLocalUrl + 'user-list.json');
+  }
+  getUsers(username:any){
+    const dbRef = ref(this.db, 'user-list/');
+    return get(child(dbRef, username))
   }
   
-  getRegisterDetails(){
-    let headers: any = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Access-Control-Allow-Origin', '*');
-    return this.http.get(this.apiLocalUrl + 'user-list.php', {headers: headers});
+  postUserDetails(registerData:any){
+    return set(ref(this.db, 'user-list/' + registerData.username), registerData);
   }
-  postRegisterDetails(registerData:any){
-    return this.http.post<Register>(this.apiLocalUrl + 'user-register.php', registerData).subscribe((res: Register) => {})
-  }
-  updateUser(value:any) {
-    return this.http.post<Register>(this.apiLocalUrl + 'user-edit.php', value).subscribe((res: Register) => {});
+  updateUser(updateData:any) {
+    return update(ref(this.db, 'user-list/' + updateData.username), updateData);
   }
   checkloginDetails(){
     let headers: any = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Access-Control-Allow-Origin', '*');
-    return this.http.get(this.apiLocalUrl + 'user-list.php');
+    return this.http.get(this.apiLocalUrl + 'user-list.json');
   }
   //Existing user validation
   userValidator(val:any): AsyncValidatorFn {
     return (control: AbstractControl): Observable<any> => {
-      return this.http.get<any>(this.apiLocalUrl + 'user-list.php').pipe(
+      return this.http.get<any>(this.apiLocalUrl + 'user-list.json').pipe(
         map((users: Register[]) => {
           if(val == 'username'){
             const isWhitespace = (control.value || '').match(/\s/g);
@@ -92,12 +94,16 @@ export class ApiService {
   }
 
   login(username: string, password: string) {
-    return this.http.get<any>(this.apiLocalUrl + 'user-list.php').subscribe(users => {
-      let userLogin = users.filter((user: { username: string; password: string; }) => username === user.username && password === user.password);
-        if(userLogin.length > 0){
-          localStorage.setItem('currentUser', JSON.stringify(userLogin));
-        }
-    })
+    return this.getUsers(username).then((snapshot) => {
+      if (snapshot.exists() && snapshot.val().password === password) {
+        console.log(snapshot.val());
+        localStorage.setItem('currentUser', JSON.stringify(snapshot.val()));
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
   isLoggedIn() {

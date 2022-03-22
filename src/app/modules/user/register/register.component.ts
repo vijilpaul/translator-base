@@ -36,6 +36,7 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService, private queryService: QueryService) { }
 
   ngOnInit() {
+    
     this.seviceList = this.queryService.seviceList;
     this.expertise = this.queryService.expertise;
     this.software = this.queryService.software;
@@ -73,6 +74,7 @@ export class RegisterComponent implements OnInit {
       agree_terms: [false, Validators.requiredTrue],
     });
   }
+
   get personal() { return this.personalDetails.controls; }
   get address() { return this.addressDetails.controls; }
   get others() { return this.otherDetails.controls; }
@@ -181,32 +183,8 @@ export class RegisterComponent implements OnInit {
       languages: this.addedLanguages
     }
     const formValues = Object.assign(this.otherDetails.value, this.personalDetails.value, this.addressDetails.value, setLanguage);
+    this.apiService.postUserDetails(formValues);
     window.scrollTo(0, 0);
-    let myFormData = new FormData();
-      myFormData.append('account_type', formValues.account_type);
-      myFormData.append('email', formValues.email);
-      myFormData.append('first_name', formValues.first_name);
-      myFormData.append('last_name', formValues.last_name);
-      myFormData.append('username', formValues.username);
-      myFormData.append('password', formValues.password);
-      myFormData.append('confirm_password', formValues.confirm_password);
-      myFormData.append('phone_number', formValues.phone_number);
-      myFormData.append('mobile_number', formValues.mobile_number);
-      myFormData.append('fax_number', formValues.fax_number);
-      myFormData.append('address', formValues.address);
-      myFormData.append('city', formValues.city);
-      myFormData.append('state', formValues.state);
-      myFormData.append('country', formValues.country);
-      myFormData.append('postal_code', formValues.postal_code);
-      myFormData.append('services', formValues.services);
-      myFormData.append('languages', JSON.stringify(formValues.languages));
-      myFormData.append('subject_areas', formValues.subject_areas);
-      myFormData.append('expertise', formValues.expertise);
-      myFormData.append('software', formValues.software);
-      myFormData.append('native_language', formValues.native_language);
-      myFormData.append('summary', formValues.summary);
-      myFormData.append('agree_terms', formValues.agree_terms);
-      this.apiService.postRegisterDetails(myFormData);
       this.message ="Register successfully submitted";
       setTimeout(() => {
         this.router.navigate(['/user/login']);

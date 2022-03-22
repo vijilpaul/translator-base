@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { MatTableJobsComponent } from './components/mat-table-jobs/mat-table-jobs.component';
 import { MatTableQuotesComponent } from './components/mat-table-quotes/mat-table-quotes.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MatTableQuotesComponent } from './components/mat-table-quotes/mat-table
     LoginFormComponent,
     UserTableComponent,
     MatTableJobsComponent,
-    MatTableQuotesComponent
+    MatTableQuotesComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { MatTableQuotesComponent } from './components/mat-table-quotes/mat-table
     LoginFormComponent,
     UserTableComponent,
     MatTableJobsComponent,
-    MatTableQuotesComponent
+    MatTableQuotesComponent,
+    NotificationComponent
   ]
 })
 export class SharedModule { }

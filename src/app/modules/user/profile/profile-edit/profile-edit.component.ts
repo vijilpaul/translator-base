@@ -1,7 +1,7 @@
 import { keyframes } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../../../core/api.service';
 import { QueryService } from '../../../../core/query.service';
 
@@ -12,8 +12,7 @@ import { QueryService } from '../../../../core/query.service';
 })
 export class ProfileEditComponent implements OnInit {
 
-  @Input() profileDetails: any;
-  @Output() saveform = new EventEmitter();
+  profileDetails:any = [];
   personalDetails: any;
   addressDetails: any;
   otherDetails: any;
@@ -32,18 +31,19 @@ export class ProfileEditComponent implements OnInit {
   softwareList: any;
   languageList: any;
   subjectAreaList: any;
-  message = "";
   accountType: any;
-
+  
   addedLanguages: Array<any> = [];
   servicesCheckedVal: any;
   subjectAreaCheckedVal: any;
   expertiseCheckedVal: any;
   softwareCheckedVal: any;
+  notificationDetails:any;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService, private queryService: QueryService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService, private queryService: QueryService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.profileDetails.push(this.apiService.getAuthentication());
     this.seviceList = this.queryService.seviceList;
     this.expertiseList = this.queryService.expertise;
     this.softwareList = this.queryService.software;
@@ -69,10 +69,11 @@ export class ProfileEditComponent implements OnInit {
       fax_number: [''],
     });
 
-    this.servicesCheckedVal = this.profileDetails[0].services.split(",");
-    this.subjectAreaCheckedVal = this.profileDetails[0].subject_areas.split(",");
-    this.expertiseCheckedVal = this.profileDetails[0].expertise.split(",");
-    this.softwareCheckedVal = this.profileDetails[0].software.split(",");
+    this.servicesCheckedVal = this.profileDetails[0].services;
+    this.subjectAreaCheckedVal = this.profileDetails[0].subject_areas;
+    this.expertiseCheckedVal = this.profileDetails[0].expertise;
+    
+    this.softwareCheckedVal = this.profileDetails[0].software;
     this.otherDetails = this.formBuilder.group({
       services: this.formBuilder.array(this.seviceList.map((x: any) => this.servicesCheckedVal.indexOf(x.value) > -1)),
       subject_areas: this.formBuilder.array(this.subjectAreaList.map((x: any) => this.subjectAreaCheckedVal.indexOf(x.value) > -1)),
@@ -91,13 +92,8 @@ export class ProfileEditComponent implements OnInit {
   editProfileForm() {
     const profileEditData = this.profileDetails[0];
     this.addedLanguages = profileEditData.languages;
-    if (profileEditData.account_type === "agency") {
-      this.accountType = 'Translation agency/company employee or owner'
-    } else if (profileEditData.account_type === "translator") {
-      this.accountType = 'Freelance translator and/or interpreter'
-    }
     this.personalDetails.patchValue({
-      account_type: this.accountType,
+      account_type: profileEditData.account_type,
       first_name: profileEditData.first_name,
       last_name: profileEditData.last_name,
       username: profileEditData.username,
@@ -177,6 +173,7 @@ export class ProfileEditComponent implements OnInit {
     }
     if (this.step == 1) {
       this.personal_step = true;
+      console.log(this.personalDetails)
       if (this.personalDetails.invalid) { return }
       this.step++
     }
@@ -217,31 +214,14 @@ export class ProfileEditComponent implements OnInit {
       languages: this.addedLanguages
     });
     const formValues = Object.assign(this.personalDetails.value, this.addressDetails.value, otherFormValues);
-
-    let myFormData = new FormData();
-    myFormData.append('id', this.profileDetails[0].id);
-    myFormData.append('first_name', formValues.first_name);
-    myFormData.append('last_name', formValues.last_name);
-    myFormData.append('phone_number', formValues.phone_number);
-    myFormData.append('mobile_number', formValues.mobile_number);
-    myFormData.append('fax_number', formValues.fax_number);
-    myFormData.append('address', formValues.address);
-    myFormData.append('city', formValues.city);
-    myFormData.append('state', formValues.state);
-    myFormData.append('country', formValues.country);
-    myFormData.append('postal_code', formValues.postal_code);
-    myFormData.append('services', formValues.services);
-    myFormData.append('languages', JSON.stringify(formValues.languages));
-    myFormData.append('subject_areas', formValues.subject_areas);
-    myFormData.append('expertise', formValues.expertise);
-    myFormData.append('software', formValues.software);
-    myFormData.append('native_language', formValues.native_language);
-    myFormData.append('summary', formValues.summary);
-    this.apiService.updateUser(myFormData);
-    window.scrollTo(0, 0);
-    this.message = "Profile updates successfully submitted";
+    this.apiService.updateUser(formValues);
+    this.notificationDetails = {
+      popupShow: true,
+      popupShowBg: 'success',
+      message: "Profile updates successfully submitted"
+    }
     setTimeout(() => {
-      this.saveform.emit(false);
+      this.router.navigate(['/user/profile/']);
     }, 5000);
   }
 }

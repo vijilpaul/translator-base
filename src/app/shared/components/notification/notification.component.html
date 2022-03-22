@@ -1,0 +1,6 @@
+<div class="notification" *ngIf="message && popupShow">
+    <div class="notification__wrap" [ngClass]="popupShowBg === 'success'? 'success': 'error'">
+        <p class="notification__text">{{message}}</p>
+        <button class="close" mat-button (click)="onClose()">X</button>
+    </div>
+</div>

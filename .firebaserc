@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "translator-base": {
+      "hosting": {
+        "translator-cloud": [
+          "translator-base"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "translator-base"
+  }
+}

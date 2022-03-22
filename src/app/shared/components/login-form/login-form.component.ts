@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/api.service';
@@ -14,6 +14,9 @@ export class LoginFormComponent implements OnInit {
   loading = false;
   submitted = false;
   message = "";
+  popupShow = false;
+  popupShowBg:any;
+  @Output() sendNotification =  new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,16 +41,27 @@ export class LoginFormComponent implements OnInit {
       this.loading = false;
         return;
     }
-    this.apiService.login(this.loginForm.get('username')?.value, this.loginForm.get('password')?.value);
-    setTimeout(() => {
+    this.apiService.login(this.loginForm.get('username')?.value, this.loginForm.get('password')?.value).then(test => {
       if (this.apiService.isLoggedIn()) {
+        this.popupShow = true;
+        this.popupShowBg = "success";
         this.message = 'Login successfull';
-        this.router.navigate(['/dashboard']);
+        setTimeout(() => {
+          this.router.navigate(['/dashboard']);
+        }, 5000);
       } else {
         this.loading = false;
+        this.popupShow = true;
+        this.popupShowBg = "error";
         this.message = 'Username or password is incorrect.';
       }
-    }, 500);
+      const notificationVal = {
+        popupShow: this.popupShow,
+        popupShowBg: this.popupShowBg,
+        message: this.message
+      }
+      this.sendNotification.emit(notificationVal)
+    })
   }
 
 }

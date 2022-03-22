@@ -225,6 +225,6 @@
         </div>
     </div>
 </section>
-<div class="messagelayer" *ngIf="message">
-    <p class="messagelayer__text">{{message}}</p>
+<div *ngIf="notificationDetails">
+    <app-notification [message]="notificationDetails.message" [popupShow]="notificationDetails.popupShow" [popupShowBg] ="notificationDetails.popupShowBg"></app-notification>
 </div>
