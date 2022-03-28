@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "translator-cloud": {
+    "translator-base": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,12 +23,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/translator-cloud",
+            "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "lodash"
+           ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -44,13 +47,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
                 }
               ],
               "fileReplacements": [
@@ -76,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "translator-cloud:build:production"
+              "browserTarget": "translator-base:build:production"
             },
             "development": {
-              "browserTarget": "translator-cloud:build:development"
+              "browserTarget": "translator-base:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "translator-cloud:build"
+            "browserTarget": "translator-base:build"
           }
         },
         "test": {
@@ -114,7 +117,7 @@
           "options": {
             "prerender": false,
             "ssr": false,
-            "browserTarget": "translator-cloud:build:production",
+            "browserTarget": "translator-base:build:production",
             "firebaseProject": "translator-base",
             "firebaseHostingSite": "translator-base"
           }
@@ -122,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "translator-cloud"
+  "defaultProject": "translator-base"
 }

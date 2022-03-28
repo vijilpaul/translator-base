@@ -1,0 +1,42 @@
+// /* Style  for browsers that are not Internet Explorer */
+// @supports not (-ms-high-contrast: none) {
+//   @media only screen and (min-width: 992px) {
+//     $lerp-duration: 0.5s;
+//     $lerp-distance: 80px;
+//     // $lerp-timing-function: cubic-bezier(.25,.25,.75,.75);
+//     $lerp-timing-function: linear;
+
+//     // Generate Duration && Delay
+//     [data-lerp-element] {
+//       @for $i from 1 through 30 {
+//         &[data-lerp-element][data-lerp-duration="#{$i * 50}"] {
+//           transition-duration: #{$i * 50}ms;
+//         }
+
+//         &[data-lerp-element][data-lerp-delay="#{$i * 50}"] {
+//           transition-delay: 0s;
+
+//           &.lerp-animate {
+//             transition-delay: #{$i * 50}ms;
+//           }
+//         }
+//       }
+//     }
+
+//     [data-lerp-element] {
+//       transform: translate3d(0, $lerp-distance, 0);
+//       opacity: 0;
+//     }
+
+//     [data-lerp-element].lerp-animate {
+//       // transform: translate3d(0, 0, 0);
+//       transform: translateZ(0);
+//       transition: all $lerp-duration $lerp-timing-function;
+//       -webkit-transition: all $lerp-duration $lerp-timing-function;
+//       -moz-transition: all $lerp-duration $lerp-timing-function;
+//       -ms-transition: all $lerp-duration $lerp-timing-function;
+//       -o-transition: all $lerp-duration $lerp-timing-function;
+//       opacity: 1;
+//     }
+//   }
+// }
