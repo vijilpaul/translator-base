@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   software:any;
   languageList:any;
   subject_areas:any;
-  message ="";
+  notificationDetails:any;
 
   addedLanguages: Array<any> = [];
   
@@ -184,8 +184,12 @@ export class RegisterComponent implements OnInit {
     }
     const formValues = Object.assign(this.otherDetails.value, this.personalDetails.value, this.addressDetails.value, setLanguage);
     this.apiService.postUserDetails(formValues);
+    this.notificationDetails = {
+      message: "Register successfully submitted",
+      popupShow: true,
+      popupShowBg: 'success'
+    }
     window.scrollTo(0, 0);
-      this.message ="Register successfully submitted";
       setTimeout(() => {
         this.router.navigate(['/user/login']);
       }, 5000); 

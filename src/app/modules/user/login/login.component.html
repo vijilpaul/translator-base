@@ -1,6 +1,5 @@
 <h2>Login</h2>
 <app-login-form (sendNotification) = "onNotificationMsg($event)"></app-login-form>
 <div *ngIf="notificationDetails && popupContainer">
-    vijil
     <app-notification [message]="notificationDetails.message" [popupShow]="notificationDetails.popupShow" [popupShowBg] ="notificationDetails.popupShowBg" (popupNotification) = "popupNotification($event)"></app-notification>
 </div>

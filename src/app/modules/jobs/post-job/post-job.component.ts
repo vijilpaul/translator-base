@@ -19,10 +19,11 @@ export class PostJobComponent implements OnInit {
   
     this.isNotLoggedIn = this.apiService.isLoggedIn();
     const currentUser = this.apiService.getAuthentication();
-    if(currentUser[0]){
-      if(currentUser[0].account_type == 'agency'){
+    console.log(currentUser)
+    if(currentUser){
+      if(currentUser.account_type != 'Freelance translator and/or interpreter'){
         this.isAgency = true;
-        this.userId = currentUser[0].id;
+        this.userId = currentUser.username;
       } else {
         this.isNotAgency = true;
       }

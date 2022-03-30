@@ -7,7 +7,9 @@ import { map, switchMap  } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Jobs } from './jobs-model';
 import { Quote } from './quote-model';
-import { Database, ref, set, get, child, update } from "@angular/fire/database";
+import { Database, ref, set, get, child, update, push, query, orderByChild } from "@angular/fire/database";
+// import { AngularFireDatabase } from '@angular/fire/compat/database';
+
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +31,11 @@ export class ApiService {
     const dbRef = ref(this.db, 'user-list/');
     return get(child(dbRef, username))
   }
+  // fetchUserList(){
+  //   const dbRef = ref(this.db, 'user-list/');
+  //   const newPostRef = push(dbRef);
+  //   console.log(newPostRef)
+  // }
   
   postUserDetails(registerData:any){
     return set(ref(this.db, 'user-list/' + registerData.username), registerData);
@@ -44,26 +51,38 @@ export class ApiService {
   }
   //Existing user validation
   userValidator(val:any): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<any> => {
-      return this.http.get<any>(this.apiLocalUrl + 'user-list.json').pipe(
-        map((users: Register[]) => {
-          if(val == 'username'){
-            const isWhitespace = (control.value || '').match(/\s/g);
-            let fl = users.filter(p => p.username === control.value);
-            if(isWhitespace){
-              return { 'whitespace': true };
-            }
-            if (fl.length>0) {
-              return { 'userNameExists': true};
-            }
-          } else if(val == 'email'){
-            let email = users.filter(p => p.email === control.value);
-            if (email.length>0) {
-              return { 'userEmailExists': true};
-            }
-          }
-          return undefined
-        }))
+    return (control: AbstractControl): any => {
+      const dbRef = ref(this.db, 'user-list/');
+      console.log(val)
+      console.log(control.value)
+      // const mostViewedPosts = query(ref(this.db, 'user-list'), orderByChild('email'));
+      // console.log(mostViewedPosts.isEqual)
+      // const listval = this.fireDB.list('user-list');
+      console.log(this.db)
+      return get(child(dbRef, control.value)).then((user) => {
+        console.log(user.exists())
+        console.log(user.val())
+
+        // map((users: Register[]) => {
+        //   if(val == 'username'){
+        //     const isWhitespace = (control.value || '').match(/\s/g);
+        //     let fl = users.filter(p => p.username === control.value);
+        //     if(isWhitespace){
+        //       return { 'whitespace': true };
+        //     }
+        //     if (fl.length>0) {
+        //       return { 'userNameExists': true};
+        //     }
+        //   } else if(val == 'email'){
+        //     let email = users.filter(p => p.email === control.value);
+        //     if (email.length>0) {
+        //       return { 'userEmailExists': true};
+        //     }
+        //   }
+        //   return undefined
+        // }))
+        
+      })
     };
   }
   //Password matching check
@@ -96,7 +115,6 @@ export class ApiService {
   login(username: string, password: string) {
     return this.getUsers(username).then((snapshot) => {
       if (snapshot.exists() && snapshot.val().password === password) {
-        console.log(snapshot.val());
         localStorage.setItem('currentUser', JSON.stringify(snapshot.val()));
       } else {
         console.log("No data available");
@@ -126,7 +144,7 @@ export class ApiService {
     return this.http.get<Jobs[]>(this.apiLocalUrl + 'job-list.php');
   }
   postJobsDetails(jobData:any){
-    return this.http.post<Jobs>(this.apiLocalUrl + 'job-post.php', jobData).subscribe((res: Jobs) => {})
+    return set(ref(this.db, 'job-list/' + jobData.jobId), jobData);
   }
   updateJobsDetails(value:any) {
     return this.http.post<Jobs>(this.apiLocalUrl + 'job-edit.php', value).subscribe((res: Jobs) => {});

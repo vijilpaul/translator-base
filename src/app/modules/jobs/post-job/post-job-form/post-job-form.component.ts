@@ -17,7 +17,6 @@ export class PostJobFormComponent implements OnInit {
   personalDetails!: FormGroup;
   loading = false;
   submitted = false;
-  message = "";
   deadlineDates:any;
   deadlineTime:any;
   subject_areas:any;
@@ -31,6 +30,7 @@ export class PostJobFormComponent implements OnInit {
   targetLanguage:any;
   software:any;
   currencyList:any;
+  notificationDetails:any
 
   constructor(private datePipe: DatePipe, private formBuilder: FormBuilder, private router: Router, private apiService: ApiService, private queryService: QueryService) { }
 
@@ -77,36 +77,24 @@ export class PostJobFormComponent implements OnInit {
       this.loading = false;
         return;
     }
-    this.personalDetails.value['deadlinedate'] = this.datePipe.transform(this.personal.deadlinedate.value, 'MM-dd-yyyy')
+    this.personalDetails.value['deadlinedate'] = this.datePipe.transform(this.personal.deadlinedate.value, 'MM-dd-yyyy');
+    const job_id = this.personalDetails.value.job_title.replace(/\s+/g, '-').toLowerCase();
     const setLanguage = {
       languages: this.addedLanguages,
-      userId: this.userId
+      userId: this.userId,
+      jobId: job_id
     }
     const formValues = Object.assign(this.personalDetails.value, setLanguage);
-    
-    let myFormData = new FormData();
-      myFormData.append('job_title', formValues.job_title);
-      myFormData.append('job_type', formValues.job_type);
-      myFormData.append('explanation_option1', formValues.explanation_option1);
-      myFormData.append('explanation_option2', formValues.explanation_option2);
-      myFormData.append('deadline', formValues.deadline);
-      myFormData.append('deadlinedate', formValues.deadlinedate);
-      myFormData.append('deadlinetime', formValues.deadlinetime);
-      myFormData.append('languages', JSON.stringify(formValues.languages));
-      myFormData.append('job_description', formValues.job_description.replace("'","\\'"));
-      myFormData.append('subject_areas', formValues.subject_areas);
-      myFormData.append('software', formValues.software);
-      myFormData.append('offered_value', formValues.offered_value);
-      myFormData.append('currency_type', formValues.currency_type);
-      myFormData.append('rate_per', formValues.rate_per);
-      myFormData.append('country', formValues.country);
-      myFormData.append('agree', formValues.agree);
-      myFormData.append('userId', formValues.userId);
-      this.apiService.postJobsDetails(myFormData);
-      this.message ="Job post is successfully submitted";
-      setTimeout(() => {
-        this.router.navigate(['/jobs/myjobs']);
-      }, 5000); 
+
+    this.apiService.postJobsDetails(formValues);
+    this.notificationDetails = {
+      message: "Job post is successfully submitted",
+      popupShow: true,
+      popupShowBg: 'success'
+    }
+    setTimeout(() => {
+      this.router.navigate(['/jobs/myjobs']);
+    }, 5000); 
   }
   onDateChange(e:any){
     if(e.value === "Deadline date"){
@@ -154,6 +142,9 @@ export class PostJobFormComponent implements OnInit {
   onChangeSoftware(e:any){
     const checkboxArrayList: FormArray = this.personalDetails.get('software') as FormArray;
     this.apiService.checkboxValidation(e, checkboxArrayList);
+  }
+  popupNotification(event: any){
+    console.log(event)
   }
 
 }

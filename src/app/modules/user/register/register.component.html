@@ -319,6 +319,4 @@
         </div>
     </div>
 </div>
-<div class="messagelayer" *ngIf="message">
-    <p class="messagelayer__text">{{message}}</p>
-</div>
+<app-notification *ngIf ="notificationDetails" [message]="notificationDetails.message" [popupShow]="notificationDetails.popupShow" [popupShowBg] ="notificationDetails.popupShowBg"></app-notification>
